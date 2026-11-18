@@ -1,4 +1,4 @@
-"""Application KyberAI.   python app.py   puis ouvrir http://127.0.0.1:7860"""
+"""Application KyberIA.   python app.py   puis ouvrir http://127.0.0.1:7860"""
 import base64
 import hashlib
 import os
@@ -150,7 +150,7 @@ THEME = gr.themes.Base(
 
 FORCE_LIGHT = """() => { const u = new URL(window.location); if (u.searchParams.get('__theme') !== 'light') { u.searchParams.set('__theme', 'light'); window.location.href = u.href; } }"""
 
-with gr.Blocks(title="KyberAI") as demo:
+with gr.Blocks(title="KyberIA") as demo:
     gr.HTML(f'<div id="hdr"><div class="brand"><img src="data:image/png;base64,{LOGO}" alt=""><span>KYBER<em>IA</em></span></div><p>Chiffrement post-quantique · détection de fuites par IA</p></div>')
     with gr.Tab("Échange de clés"):
         with gr.Row(equal_height=True):

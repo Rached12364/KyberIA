@@ -1,7 +1,19 @@
-# KyberAI
+# KyberIA
+
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white) ![scikit-learn](https://img.shields.io/badge/IA-scikit--learn-F7931E?logo=scikitlearn&logoColor=white) ![Standard](https://img.shields.io/badge/NIST-FIPS%20203%20(ML--KEM)-121C4E) ![Statut](https://img.shields.io/badge/statut-en%20cours-D0271D)
 
 **Kyber (ML-KEM, standard NIST FIPS 203) écrit à partir de zéro en Python,
 et une IA qui vérifie que le code ne laisse pas fuir la clé secrète.**
+
+## Aperçu
+
+| Le code naïf : l'IA détecte la fuite | Le code corrigé : aucune fuite |
+|---|---|
+| ![Fuite détectée](docs/detecteur_fuite.png) | ![Aucune fuite](docs/temps_constant.png) |
+
+**Échange de clés Alice → Bob** avec Kyber, et ce que voit un pirate :
+
+![Échange de clés](docs/echange_cles.png)
 
 ## Pourquoi ?
 
@@ -23,12 +35,19 @@ C'est une **attaque par canal auxiliaire**.
      le message déchiffré a-t-il changé ?
    - Si l'IA devine nettement mieux que le hasard, **le code laisse fuir la clé**.
 3. **Deux versions de la vérification** pour le prouver :
-   - **naïve**, écrite volontairement avec le défaut : elle s'arrête à la première différence. Résultat : **fuite détectée**, l'IA devine à environ 100 % ;
-   - **temps constant**, la version corrigée. Résultat : **aucune fuite**, l'IA reste à environ 50 %, comme le hasard.
+   - **naïve**, écrite volontairement avec le défaut : elle s'arrête à la première différence.
+     Résultat : **fuite détectée**, l'IA devine à environ 100 % (test t de Welch ≈ 47, seuil 4,5) ;
+   - **temps constant**, la version corrigée. Résultat : **aucune fuite**, l'IA reste autour de 50 %,
+     comme le hasard (test t ≈ 1,5).
+
+> Ce type de défaut existe dans la réalité : en 2023, la faille **KyberSlash** a touché plusieurs
+> implémentations de Kyber à cause d'un temps de calcul qui dépendait du secret.
 
 ## Lancer
 
 ```bash
+git clone https://github.com/Rached12364/KyberIA.git
+cd KyberIA
 pip install -r requirements.txt
 python test_kyber.py      # (optionnel) vérification contre la référence : pip install kyber-py
 python leakage.py         # détecteur en ligne de commande
@@ -41,7 +60,8 @@ python app.py             # application : http://127.0.0.1:7860
 |---|---|
 | `kyber.py` | Kyber / ML-KEM complet (FIPS 203) + les deux comparaisons |
 | `leakage.py` | Mesure des temps, IA (forêt aléatoire), test statistique de Welch |
-| `app.py` | Interface : échange de clés Alice → Bob, puis détecteur de fuites |
+| `docs/` | Captures d'écran de l'application |
+| `app.py` | Interface claire : échange de clés Alice → Bob, puis détecteur de fuites |
 | `test_kyber.py` | Vérifie que le résultat est identique à `kyber-py` |
 
 ## Limites (honnêtes)
@@ -55,3 +75,5 @@ python app.py             # application : http://127.0.0.1:7860
 ## Auteur
 
 **Rached ILAHI** — élève ingénieur en génie informatique, ENICarthage · projet en cours
+
+[LinkedIn](https://www.linkedin.com/in/rached-ilahi-5b5101366/) · [Portfolio](https://rached12364.github.io/)
